@@ -42,8 +42,9 @@ class VinnasTest(models.Model):
     region = models.ForeignKey(RegionesTest, blank=True,null=True, on_delete=models.CASCADE)
     vinnas_vigencia = models.BooleanField(default=True)
     vinna_url_img_md = models.CharField(max_length=200, default='https://st.depositphotos.com/1000423/60623/i/600/depositphotos_606236826-stock-photo-nanotechnology-molecule-and-atom-model.jpg')
-    vinna_descripcion = models.CharField(max_length=120,default='Aqui va una breve descripción de la viña, ejemplo donde esta ubicada y demas')
+    vinna_descripcion = models.TextField(max_length=120,default='Aqui va una breve descripción de la viña, ejemplo donde esta ubicada y demas')
     vinna_titulo = models.CharField(max_length=120,default='Titulo viña')
+    categoria = models.IntegerField(default=0)
     class Meta:
         managed = True
         db_table = "viñas_test"

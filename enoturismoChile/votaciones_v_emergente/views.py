@@ -68,25 +68,30 @@ def cargar_datos_votacion(request):
 
     for region in regiones:
         if region.regiones_vigencia == 1:
-            viñas_de_region = vinnas.filter(region=region)
-            viñas_data = list(zip([viña.nombre_vinna for viña in viñas_de_region],
+            viñas_de_region = vinnas.filter(region=region, categoria=2)
+            if viñas_de_region:
+                viñas_data = list(zip([viña.nombre_vinna for viña in viñas_de_region],
                                 [viña.img_url for viña in viñas_de_region],
                                 [viña.id for viña in viñas_de_region]))
             
-            random.shuffle(viñas_data)  # Reorganizar la lista de viñas aleatoriamente  
-            nombre_viñas, imagen_viñas, id_viñas = zip(*viñas_data)    
-            region_data = {
-                'id_region': region.id,
-                'region': region.nombre_regiones,
-                'viñas': nombre_viñas,
-                'imagenViñas': imagen_viñas,
-                'id_viñas': id_viñas,
-                'colorFondo': region.color,
-                'colorCirculo': region.color_circulo,
-                'colorInterior': region.color_interior,
-                'votos_cantidad_emergente':votos
-            }
-            lista_regiones.append(region_data)
+                random.shuffle(viñas_data)  # Reorganizar la lista de viñas aleatoriamente  
+                
+                if viñas_data:
+                    nombre_viñas, imagen_viñas, id_viñas = zip(*viñas_data)   
+                else:
+                    print("datos insuficifientes")
+                region_data = {
+                    'id_region': region.id,
+                    'region': region.nombre_regiones,
+                    'viñas': nombre_viñas,
+                    'imagenViñas': imagen_viñas,
+                    'id_viñas': id_viñas,
+                    'colorFondo': region.color,
+                    'colorCirculo': region.color_circulo,
+                    'colorInterior': region.color_interior,
+                    'votos_cantidad_experiencia':votos
+                }
+                lista_regiones.append(region_data)
 
     random.shuffle(lista_regiones)  # Esto reorganizará las regiones de manera aleatoria también
     return JsonResponse(lista_regiones, safe=False)

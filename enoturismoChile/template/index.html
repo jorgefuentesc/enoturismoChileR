@@ -11,6 +11,166 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;900&display=swap');
         </style>
+    <style>
+        
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@900&display=swap');
+
+
+.font-ins {
+    font-family: 'Tajawal', sans-serif;
+    top: 583px;
+    left: 195px;
+    width: 265px;
+    height: 62px;
+    /* UI Properties */
+    text-align: left;
+    letter-spacing: 1.05px;
+    color: #4A4A4A;
+    opacity: 1;
+}
+
+
+
+.circle {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    line-height: 50px;
+    position: absolute;
+    left: -14px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+
+}
+
+
+.circulo {
+    display: flex;
+    align-items: center;
+    font-size: xx-large;
+    background: #6A6B4D 0% 0% no-repeat padding-box;
+    border-radius: 20px 0px 23px 33px;
+    height: 50px;
+    /* width: max-content; */
+    position: relative;
+    margin: 0 10px !important;
+    width: 222px !important;
+    color: #CADBDD;
+
+
+}
+
+.contenedor-b {
+    align-items: center;
+    width: auto;
+     height: auto;
+    opacity: 1;
+    text-align: -webkit-center;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.nombre {
+    font-size: 18px;
+    height: 100%;
+    line-height: 100%;
+    font-family: 'Tajawal', sans-serif;
+    margin: 0;
+}
+
+.color-radio {
+    margin-left: 15px;
+    margin-right: 20px;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+}
+
+.formulario-fondo {
+    height: 716px;
+    /* UI Properties */
+    background: #E0AC90 0% 0% no-repeat padding-box;
+    opacity: 1;
+}
+
+.formulario-input {
+    height: 71px;
+    /* UI Properties */
+    background: #F7ECE7 0% 0% no-repeat padding-box;
+    border-radius: 36px;
+    opacity: 1;
+}
+
+.btn-enviar {
+    width: 75%;
+    height: 71px;
+    /* UI Properties */
+    background: #C1632F 0% 0% no-repeat padding-box;
+    border-radius: 36px;
+    opacity: 1;
+}
+
+.titulo_encabezado_form {
+    width: 100%;
+    height: 53px;
+    /* UI Properties */
+    text-align: left;
+    letter-spacing: 0.9px;
+    color: #C1632F;
+    opacity: 1;
+    block-size: auto;
+}
+
+.titulo_input {
+    width: 191px;
+    height: 41px;
+    /* UI Properties */
+    text-align: left;
+    letter-spacing: 0.75px;
+    color: #C1632F;
+    opacity: 1;
+    margin-left: 4%;
+}
+
+.titulo_form {
+    text-align: left;
+    letter-spacing: 0px;
+    color: #4A4A4A;
+    opacity: 1;
+    text-align: center;
+    padding-top: 20%;
+}
+
+.label_enviar {
+    bottom: 30%;
+    left: 28%;
+    position: absolute;
+    margin: 0 !important;
+}
+
+.disenno-modal {
+
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 0px 73px 73px 0px;
+    opacity: 1;
+}
+
+.rd_color {
+    accent-color: #C1632F;
+}
+
+.btn_mostrar_votos {
+    background: #C1632F 0% 0% no-repeat padding-box;
+    border-radius: 36px;
+    opacity: 1;
+}
+/* .ajuste-tamanno {
+    width: 70%;
+    margin: auto;
+} */
+    </style>
         
     <title>Document</title>
 </head>
@@ -36,6 +196,296 @@
     {% endblock script %}
     <script src="{% static 'js/votacion/modal.js' %}"></script>
     <script src="{% static 'js/votacion/index.js' %}"></script>
+
+    <script>
+ 
+
+$(document).ready(function () {
+
+
+function getCookie(name) {
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
+}
+
+var Fn = {
+  // Valida el rut con su cadena completa "XXXXXXXX-X"
+  validaRut: function (rutCompleto) {
+    rutCompleto = rutCompleto.replace("‐", "-");
+    if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test(rutCompleto))
+      return false;
+    var tmp = rutCompleto.split('-');
+    var digv = tmp[1];
+    var rut = tmp[0];
+    if (digv == 'K') digv = 'k';
+
+    return (Fn.dv(rut) == digv);
+  },
+  dv: function (T) {
+    var M = 0, S = 1;
+    for (; T; T = Math.floor(T / 10))
+      S = (S + T % 10 * (9 - M++ % 6)) % 11;
+    return S ? S - 1 : 'k';
+  }
+}
+$.ajax({
+  type: "GET",
+  url: "cargar_datos_votacion/",
+  // 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+  success: function (response) {
+
+    var vinnas = response.map(function (regionData) {
+      // var mostrar = document.getElementById('cantidad_votos_totales')
+      // mostrar.innerHTML = ` <h3 id = "votos_t" hidden> ${regionData.votos_cantidad_experiencia} </h3>` 
+
+      // Acceder a los datos de cada región y sus viñas
+      var contenedor_vinna = document.getElementById('contenedor-vinnas')
+      contenedor_vinna.innerHTML +=
+        ` 
+              <section class="contenedor-b row" style=" background: ${regionData.colorFondo} ;">
+  <h1 class="col-md-3" style= "color: #FFFFFF;">${regionData.region}</h1>
+  <section class=" col-md-3" style="padding: 27px;">
+    <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img onclick="fn_datos_para_mdl('${regionData.id_viñas[0]}')" src="${regionData.imagenViñas[0]}" style="width: 278px;
+      height: 125px;
+      /* UI Properties */
+      background: #FFFFFF 0% 0% no-repeat padding-box;
+      border-radius: 62px;"  class="" type="text" data-parametro= ${regionData.id_viñas[0]}></div>
+    <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
+      <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
+      opacity: 1;">
+        <span></span>
+      </label>
+
+      <label style="padding-left: 50px;
+      display: block;
+      margin: 0 !important;">
+        <p class="nombre">${regionData.viñas[0]} <span style="position: relative;">
+          <input type="radio" class="color-radio" name="${regionData.id_region}" value = "${regionData.id_viñas[0]}" style = "accent-color: ${regionData.colorCirculo};">
+        </span></p>
+        
+      </label>
+    </div>      
+  </section>     
+  <section class=" col-md-3" style="padding: 27px;">
+    <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img onclick="fn_datos_para_mdl('${regionData.id_viñas[1]}')" src="${regionData.imagenViñas[1]}" style="width: 278px;
+      height: 125px;
+      /* UI Properties */
+      background: #FFFFFF 0% 0% no-repeat padding-box;
+      border-radius: 62px;"  class="" type="text" data-parametro= ${regionData.id_viñas[1]}></div>
+    <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
+      <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
+      opacity: 1;">
+        <span></span>
+      </label>
+
+      <label style="padding-left: 50px;
+      display: block;
+      margin: 0 !important;">
+        <p class="nombre">${regionData.viñas[1]} <span style="position: relative;">
+          <input type="radio" class="color-radio" name="${regionData.id_region}" value = "${regionData.id_viñas[1]}" style = "accent-color: ${regionData.colorCirculo};">
+        </span></p>
+        
+      </label>
+    </div>      
+  </section>     
+  <section class=" col-md-3" style="padding: 27px;">
+    <div class="row" style="justify-content: center;margin-bottom: 90px;margin-top: 90px;"><img  onclick="fn_datos_para_mdl('${regionData.id_viñas[2]}')" src="${regionData.imagenViñas[2]}" style="width: 278px;
+      height: 125px;
+      /* UI Properties */
+      background: #FFFFFF 0% 0% no-repeat padding-box;
+      border-radius: 62px;"  class="" type="text" data-parametro= ${regionData.id_viñas[2]}></div>
+    <div class="circulo row" style="background: ${regionData.colorInterior} 0% 0% no-repeat padding-box;" >
+      <label class="circle" style="background: ${regionData.colorCirculo} 0% 0% no-repeat padding-box;
+      opacity: 1;">
+        <span></span>
+      </label>
+
+      <label style="padding-left: 50px;
+      display: block;
+      margin: 0 !important;">
+        <p class="nombre">${regionData.viñas[2]} <span style="position: relative;">
+          <input type="radio" class="color-radio" name="${regionData.id_region}" value = "${regionData.id_viñas[2]}" style = "accent-color: ${regionData.colorCirculo};">
+        </span></p>
+        
+      </label>
+    </div>      
+  </section>     
+
+
+  </section>            
+              `
+    });
+  },
+  error: function (error) {
+    console.log("Error en la solicitud AJAX:", error);
+  }
+});
+
+
+var valoresSeleccionados = {};
+
+// Agregar evento de escucha a los radio buttons con la clase "color-radio"
+$(document).on('change', '.color-radio', function () {
+  // Obtener el valor seleccionado del radio button
+  var valorSeleccionado = $(this).val();
+  // Obtener el nombre del radio button, que corresponde al id de la región
+  var nombreRadio = $(this).attr('name');
+
+  // Guardar el valor seleccionado en la variable valoresSeleccionados
+  valoresSeleccionados[nombreRadio] = valorSeleccionado;
+});
+
+$("#envio_formulario").submit(function (event) {
+
+  // Prevenir el comportamiento predeterminado del formulario (enviarlo tradicionalmente)
+  event.preventDefault();
+  const radioButtons = document.getElementsByName('inp_tipo_id');
+  let valorSeleccionado;
+  for (const radioButton of radioButtons) {
+      if (radioButton.checked) {
+          valorSeleccionado = radioButton.value;
+          break; // Salir del bucle cuando encuentre el seleccionado
+      }
+  }
+
+  // Mostrar el valor seleccionado en la consola
+  var csrfToken = getCookie('csrftoken');
+
+  var documento = $("#documento").val();
+  // Obtener los valores de los campos de entrada del formulario
+  var nombre = $("#nombre").val();
+  var correo = $("#correo").val();
+  var datos = {
+    documento: documento,
+    nombre: nombre,
+    correo: correo,
+    opciones: valoresSeleccionados,
+  };
+
+  if (Fn.validaRut($("#documento").val()) && valorSeleccionado == 'run' ) {
+    $.ajax({
+      type: "POST",
+      url: "envio_datos_formulario/",
+      data: JSON.stringify(datos),
+      dataType: "json",
+      headers: {
+        'X-CSRFToken': csrfToken,  // Incluir el token CSRF como encabezado
+      },
+      success: function (response) {
+        if(response.data == 0){
+          var error_envio = document.getElementById("error_envio")
+          error_envio.textContent = response.message;
+          error_envio.hidden = false;
+        }       
+        else{
+          // window.location.replace('https://premiosenoturismochile.cl/votacion-exitosa/');
+          window.location.href = 'https://premiosenoturismochile.cl/votacion-exitosa/';
+
+
+        }
+      }
+    });
+  } 
+  else if(valorSeleccionado == 'pasaporte'){
+    $.ajax({
+      type: "POST",
+      url: "envio_datos_formulario/",
+      data: JSON.stringify(datos),
+      dataType: "json",
+      headers: {
+        'X-CSRFToken': csrfToken,  // Incluir el token CSRF como encabezado
+      },
+      success: function (response) {
+        if(response.data == 0){
+          var error_envio = document.getElementById("error_envio")
+          error_envio.textContent = response.message;
+          error_envio.hidden = false;
+        }       
+        else{
+          window.location.replace('https://premiosenoturismochile.cl/votacion-exitosa/');
+
+        }
+      }
+    });
+
+  }
+  else {
+    const labelError = document.getElementById("label-error");
+    labelError.hidden = false;
+    
+  }
+});
+
+
+
+const botonMostrar = $('#boton_mostrar');
+const cantidadVotos = $('#cantidad_votos_en');
+
+// Manejar el evento click del botón
+botonMostrar.click(function() {
+  // Alternar el atributo "hidden" al hacer clic (mostrar si está oculto, ocultar si está visible)
+  cantidadVotos.attr('hidden', !cantidadVotos.attr('hidden'));
+});
+
+
+
+
+})
+
+
+
+
+
+
+
+
+    </script>
+    <script>
+        
+function fn_datos_para_mdl(p) {
+    // Hacer lo que desees con el parámetro recibido (ID de la viña)
+    id_vina = p
+    if (id_vina)
+        $.ajax({
+            type: "GET",
+            url: "cargar_mdl_vinna/",
+            data: { id_vina: id_vina },
+            dataType: "json",
+            success: function (response) {
+                var titulo_vinna_elemento = document.getElementById('titulo-vinna-mdl');
+                var descripcion_vinna_elemento = document.getElementById('descripcion_vinna');
+                var titulo_superior_vinna_elemento = document.getElementById('titulo_superior');
+
+                // var contenido_actual = titulo_vinna_elemento.innerText;
+                var titulo_vinna = response.titulo_vinna;
+                var descripcion_vinna = response.descripcion_vinna;
+
+                var img_vinna = response.img_vinna;
+
+                var contenedor_img = document.getElementById('contenedor_img_vinna');
+                contenedor_img.innerHTML = `
+                <img style="width: -webkit-fill-available;
+                border-radius: 0px 73px 0px 0px;"
+                src="${img_vinna}" alt="">
+                `;
+
+                // Cambiar el contenido del elemento
+
+                descripcion_vinna_elemento.innerText = descripcion_vinna;
+                titulo_superior_vinna_elemento.innerText = titulo_vinna;
+
+                var nuevo_contenido = response.nombre_vinna;
+                titulo_vinna_elemento.innerText = nuevo_contenido;
+                $('#mdl-vista_vinna').modal('show');
+
+            }
+        });
+
+}
+
+
+    </script>
 
 </body>
 </html>

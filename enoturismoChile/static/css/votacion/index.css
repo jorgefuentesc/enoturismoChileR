@@ -1,4 +1,4 @@
-
+/* 
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@900&display=swap');
 
 
@@ -8,10 +8,9 @@
     left: 195px;
     width: 265px;
     height: 62px;
-    /* UI Properties */
     text-align: left;
     letter-spacing: 1.05px;
-    color: #4A4A4A;
+    color: 4A4A4A;
     opacity: 1;
 }
 
@@ -40,7 +39,6 @@
     background: #6A6B4D 0% 0% no-repeat padding-box;
     border-radius: 20px 0px 23px 33px;
     height: 50px;
-    /* width: max-content; */
     position: relative;
     margin: 0 10px !important;
     width: 222px !important;
@@ -76,14 +74,12 @@
 
 .formulario-fondo {
     height: 716px;
-    /* UI Properties */
     background: #E0AC90 0% 0% no-repeat padding-box;
     opacity: 1;
 }
 
 .formulario-input {
     height: 71px;
-    /* UI Properties */
     background: #F7ECE7 0% 0% no-repeat padding-box;
     border-radius: 36px;
     opacity: 1;
@@ -92,7 +88,6 @@
 .btn-enviar {
     width: 75%;
     height: 71px;
-    /* UI Properties */
     background: #C1632F 0% 0% no-repeat padding-box;
     border-radius: 36px;
     opacity: 1;
@@ -101,7 +96,6 @@
 .titulo_encabezado_form {
     width: 100%;
     height: 53px;
-    /* UI Properties */
     text-align: left;
     letter-spacing: 0.9px;
     color: #C1632F;
@@ -112,7 +106,6 @@
 .titulo_input {
     width: 191px;
     height: 41px;
-    /* UI Properties */
     text-align: left;
     letter-spacing: 0.75px;
     color: #C1632F;
@@ -137,9 +130,7 @@
 }
 
 .disenno-modal {
-    width: 40%;
-    height: 60%;
-    /* UI Properties */
+
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border-radius: 0px 73px 73px 0px;
     opacity: 1;
@@ -153,7 +144,7 @@
     background: #C1632F 0% 0% no-repeat padding-box;
     border-radius: 36px;
     opacity: 1;
-}
+} */
 /* .ajuste-tamanno {
     width: 70%;
     margin: auto;
